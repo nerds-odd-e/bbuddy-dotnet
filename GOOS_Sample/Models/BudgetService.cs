@@ -41,13 +41,13 @@ namespace GOOS_Sample.Models
 
         public decimal TotalBudget(Period period)
         {
-            var budget =
+            var totalBudget =
                 this._budgetRepository
-                .ReadAll()
-                .Where(x => IsBetweenPeriod(period, x))
-                .ElementAt(0);
+                    .ReadAll()
+                    .Where(x => IsBetweenPeriod(period, x))
+                    .ElementAt(0)
+                    .GetOverlappingAmount(period);
 
-            var totalBudget = budget.GetOverlappingAmount(period);
             return totalBudget;
         }
 
