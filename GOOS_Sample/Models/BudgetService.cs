@@ -14,7 +14,6 @@ namespace GOOS_Sample.Models
 
                 dbcontext.SaveChanges();
             }
-
         }
     }
 }
