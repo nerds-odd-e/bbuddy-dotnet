@@ -10,12 +10,6 @@ namespace GOOS_SampleTests.steps
     {
         private BudgetCreatePage _budgetCreatePage;
 
-        [BeforeScenario()]
-        public void BeforeScenario()
-        {
-            SeleniumWebDriver.Bootstrap(SeleniumWebDriver.Browser.Chrome);
-        }
-
         public BudgetCreateSteps()
         {
             this._budgetCreatePage = new BudgetCreatePage(this);
