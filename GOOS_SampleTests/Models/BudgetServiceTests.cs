@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using FluentAssertions;
 
 namespace GOOS_Sample.Models.Tests
@@ -62,7 +63,7 @@ namespace GOOS_Sample.Models.Tests
         {
             this._budgetService = new BudgetService(_budgetRepositoryStub);
 
-            _budgetRepositoryStub.ReadAll(Arg.Any<Func<Budget, bool>>())
+            _budgetRepositoryStub.ReadAll()
                 .ReturnsForAnyArgs(new List<Budget> { new Budget() { YearMonth = "2017-04", Amount = 9000 } });
 
             var amount = this._budgetService.TotalBudget(new Period(new DateTime(2017, 4, 5), new DateTime(2017, 4, 14)));

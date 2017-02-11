@@ -35,7 +35,7 @@ namespace GOOS_Sample.Models.Repositories
             }
         }
 
-        public IEnumerable<Budget> ReadAll(Func<Budget, bool> predicate)
+        public IEnumerable<Budget> ReadAll()
         {
             throw new NotImplementedException();
         }
