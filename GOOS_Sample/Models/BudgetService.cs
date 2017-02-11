@@ -85,6 +85,7 @@ namespace GOOS_Sample.Models
         {
             var days = DateTime.DaysInMonth(Convert.ToInt16(budget.YearMonth.Split('-')[0]),
                 Convert.ToInt16(budget.YearMonth.Split('-')[1]));
+
             return days;
         }
 
