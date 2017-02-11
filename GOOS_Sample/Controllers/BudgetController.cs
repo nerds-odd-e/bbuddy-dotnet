@@ -31,14 +31,7 @@ namespace GOOS_Sample.Controllers
         [HttpPost]
         public ActionResult Add(BudgetAddViewModel model)
         {
-            using (var dbcontext= new NorthwindEntities())
-            {
-                var budget = new Budget() {Amount = model.Amount, YearMonth = model.Month};
-                dbcontext.Budgets.Add(budget);
-
-                dbcontext.SaveChanges();
-            }
-
+            this.budgetServiceStub.Create(model);
             ViewBag.Message = "added successfully";
 
             return View(model);
