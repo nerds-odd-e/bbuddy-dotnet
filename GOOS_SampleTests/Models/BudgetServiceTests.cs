@@ -18,18 +18,27 @@ namespace GOOS_Sample.Models.Tests
         {
             this._budgetService = new BudgetService(_budgetRepositoryStub);
 
+            var wasCreated = false;
+            this._budgetService.Created += (sender, e) => { wasCreated = true; };
+
             var model = new BudgetAddViewModel { Amount = 2000, Month = "2017-02" };
 
             this._budgetService.Create(model);
 
+            //assert
             _budgetRepositoryStub.Received()
                 .Save(Arg.Is<Budget>(x => x.Amount == 2000 && x.YearMonth == "2017-02"));
+
+            Assert.IsTrue(wasCreated);
         }
 
         [TestMethod()]
         public void CreateTest_when_exist_record_should_update_budget()
         {
             this._budgetService = new BudgetService(_budgetRepositoryStub);
+
+            var wasUpdated = false;
+            this._budgetService.Updated += (sender, e) => { wasUpdated = true; };
 
             var budgetFromDb = new Budget { Amount = 999, YearMonth = "2017-02" };
             _budgetRepositoryStub.Read(Arg.Any<Func<Budget, bool>>())
@@ -38,8 +47,11 @@ namespace GOOS_Sample.Models.Tests
             var model = new BudgetAddViewModel { Amount = 2000, Month = "2017-02" };
             this._budgetService.Create(model);
 
+            //assert
             _budgetRepositoryStub.Received()
                 .Save(Arg.Is<Budget>(x => x == budgetFromDb && x.Amount == 2000));
+
+            Assert.IsTrue(wasUpdated);
         }
     }
 }

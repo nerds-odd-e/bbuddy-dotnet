@@ -1,5 +1,6 @@
-﻿using System;
-using GOOS_Sample.Models.DataModels;
+﻿using GOOS_Sample.Models.DataModels;
+using System;
+using System.Linq;
 
 namespace GOOS_Sample.Models.Repositories
 {
@@ -9,7 +10,16 @@ namespace GOOS_Sample.Models.Repositories
         {
             using (var dbcontext = new NorthwindEntities())
             {
-                dbcontext.Budgets.Add(budget);
+                var budgetFromDb = dbcontext.Budgets.FirstOrDefault(x => x.YearMonth == budget.YearMonth);
+
+                if (budgetFromDb == null)
+                {
+                    dbcontext.Budgets.Add(budget);
+                }
+                else
+                {
+                    budgetFromDb.Amount = budget.Amount;
+                }
 
                 dbcontext.SaveChanges();
             }
@@ -17,7 +27,11 @@ namespace GOOS_Sample.Models.Repositories
 
         public Budget Read(Func<Budget, bool> predicate)
         {
-            throw new NotImplementedException();
+            using (var dbcontext = new NorthwindEntities())
+            {
+                var firstBudget = dbcontext.Budgets.FirstOrDefault(predicate);
+                return firstBudget;
+            }
         }
     }
 }
