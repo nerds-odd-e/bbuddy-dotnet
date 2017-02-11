@@ -11,12 +11,14 @@ namespace GOOS_SampleTests.PageObjects
 
         public void Query(string startDate, string endDate)
         {
-            throw new System.NotImplementedException();
+            I.Enter(startDate).In("#startDate")
+                .Enter(endDate).In("#endDate")
+                .Click("input[type=\"submit\"]");
         }
 
         public void ShouldDisplayAmount(decimal amount)
         {
-            throw new System.NotImplementedException();
+            I.Assert.Text(amount.ToString("##.00")).In("#amount");
         }
     }
 }
