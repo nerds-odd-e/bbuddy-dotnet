@@ -35,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentAssertions, Version=4.19.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.19.0\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>
@@ -59,6 +67,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
@@ -113,6 +123,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BudgetControllerSteps.cs" />
+    <Compile Include="DataModelsForIntegrationTest\Budget.cs">
+      <DependentUpon>BudgetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelsForIntegrationTest\BudgetModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BudgetModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelsForIntegrationTest\BudgetModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BudgetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelsForIntegrationTest\BudgetModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BudgetModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="features\BudgetController.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BudgetController.feature</DependentUpon>
+    </Compile>
     <Compile Include="features\BudgetCreate.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -126,8 +160,29 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="DataModelsForIntegrationTest\BudgetModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BudgetModel.edmx</DependentUpon>
+      <LastGenOutput>BudgetModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelsForIntegrationTest\BudgetModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BudgetModel.edmx</DependentUpon>
+      <LastGenOutput>BudgetModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="DataModelsForIntegrationTest\BudgetModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BudgetModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataModelsForIntegrationTest\BudgetModel.edmx.diagram">
+      <DependentUpon>BudgetModel.edmx</DependentUpon>
+    </None>
+    <None Include="features\BudgetController.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>BudgetController.feature.cs</LastGenOutput>
+    </None>
     <None Include="features\BudgetCreate.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BudgetCreate.feature.cs</LastGenOutput>
@@ -142,6 +197,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
