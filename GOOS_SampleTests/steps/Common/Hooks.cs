@@ -16,7 +16,18 @@ namespace GOOS_SampleTests.steps.Common
         }
 
         [BeforeScenario()]
-        public void CleanTable()
+        public void BeforeScenarioCleanTable()
+        {
+            CleanTableByTags();
+        }
+
+        [AfterFeature()]
+        public static void AfterFeatureCleanTable()
+        {
+            CleanTableByTags();
+        }
+
+        private static void CleanTableByTags()
         {
             var tags = ScenarioContext.Current.ScenarioInfo.Tags
                 .Where(x => x.StartsWith("Clean"))
@@ -25,7 +36,7 @@ namespace GOOS_SampleTests.steps.Common
             if (!tags.Any())
             {
                 return;
-            }　
+            }
 
             using (var dbcontext = new NorthwindEntities())
             {
