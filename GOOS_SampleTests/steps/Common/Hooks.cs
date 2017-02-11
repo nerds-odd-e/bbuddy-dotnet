@@ -3,6 +3,7 @@ using GOOS_Sample.Models;
 using GOOS_Sample.Models.DataModels;
 using Microsoft.Practices.Unity;
 using System.Linq;
+using GOOS_Sample.Models.Repositories;
 using TechTalk.SpecFlow;
 
 namespace GOOS_SampleTests.steps.Common
@@ -22,6 +23,7 @@ namespace GOOS_SampleTests.steps.Common
         {
             UnityContainer = new UnityContainer();
 
+            UnityContainer.RegisterType<IRepository<Budget>, BudgetRepository>();
             UnityContainer.RegisterType<IBudgetService, BudgetService>();
         }
 

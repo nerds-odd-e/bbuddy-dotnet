@@ -2,6 +2,6 @@
 {
     public interface IRepository<T>
     {
-        void Save(T entity);
+        void Save(T budget);
     }
 }
