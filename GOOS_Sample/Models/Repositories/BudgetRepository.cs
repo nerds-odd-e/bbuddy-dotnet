@@ -1,4 +1,5 @@
-﻿using GOOS_Sample.Models.DataModels;
+﻿using System;
+using GOOS_Sample.Models.DataModels;
 
 namespace GOOS_Sample.Models.Repositories
 {
@@ -12,6 +13,11 @@ namespace GOOS_Sample.Models.Repositories
 
                 dbcontext.SaveChanges();
             }
+        }
+
+        public Budget Read(Func<Budget, bool> predicate)
+        {
+            throw new NotImplementedException();
         }
     }
 }
