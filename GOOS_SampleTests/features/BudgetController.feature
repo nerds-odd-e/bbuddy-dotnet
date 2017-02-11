@@ -22,5 +22,15 @@ Scenario: Update a budget record When the budget record existed
 	And it should exist a budget record in budget table
 	| Amount | YearMonth |
 	| 2000   | 2017-02   |
-	
-	
+
+@CleanBudgets	
+Scenario: Query budget within single month
+	Given Budget table existed budgets
+	| Amount | YearMonth |
+	| 60000  | 2017-04   |
+	When query
+	| StartDate  | EndDate    |
+	| 2017-04-05 | 2017-04-14 |
+	Then ViewData.Model should be
+	| StartDate  | EndDate    | Amount |
+	| 2017-04-05 | 2017-04-14 | 20000  |
