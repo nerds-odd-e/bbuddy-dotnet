@@ -61,15 +61,18 @@ namespace GOOS_Sample.Models
     {
         public static int GetOverlappingDays(this Budget budget, Period period)
         {
-            var endDateBoundary = period.EndDate;
-            if (endDateBoundary > budget.YearMonth.LastDay())
-            {
-                endDateBoundary = budget.YearMonth.LastDay();
-            }
+            var endDateBoundary = GetEndDateBoundary(budget, period);
 
             var startDateBoundary = GetStartBoundary(budget, period);
 
             return new TimeSpan(endDateBoundary.AddDays(1).Ticks - startDateBoundary.Ticks).Days;
+        }
+
+        private static DateTime GetEndDateBoundary(Budget budget, Period period)
+        {
+            var lastDay = budget.YearMonth.LastDay();
+
+            return period.EndDate > lastDay ? lastDay : period.EndDate;
         }
 
         private static DateTime GetStartBoundary(Budget budget, Period period)
