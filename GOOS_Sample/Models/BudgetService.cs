@@ -61,10 +61,15 @@ namespace GOOS_Sample.Models
     {
         public static int GetOverlappingDays(this Budget budget, Period period)
         {
-            var endDateBoundary = period.EndDate.AddDays(1);
+            var endDateBoundary = period.EndDate;
+            if (endDateBoundary > budget.YearMonth.LastDay())
+            {
+                endDateBoundary = budget.YearMonth.LastDay();
+            }
+
             var startDateBoundary = GetStartBoundary(budget, period);
 
-            return new TimeSpan(endDateBoundary.Ticks - startDateBoundary.Ticks).Days;
+            return new TimeSpan(endDateBoundary.AddDays(1).Ticks - startDateBoundary.Ticks).Days;
         }
 
         private static DateTime GetStartBoundary(Budget budget, Period period)
@@ -76,15 +81,9 @@ namespace GOOS_Sample.Models
 
         public static decimal DailyAmount(this Budget budget)
         {
-            var days = budget.GetDaysOfBudgetYearMonth();
+            var days = DaysInMonth(budget.YearMonth);
 
             return budget.Amount / days;
-        }
-
-        private static int GetDaysOfBudgetYearMonth(this Budget budget)
-        {
-            return DateTime.DaysInMonth(Convert.ToInt16(budget.YearMonth.Split('-')[0]),
-                Convert.ToInt16(budget.YearMonth.Split('-')[1]));
         }
 
         public static decimal GetOverlappingAmount(this Budget budget, Period period)
@@ -99,6 +98,19 @@ namespace GOOS_Sample.Models
         public static DateTime FirstDay(this string yearMonth)
         {
             return DateTime.Parse($"{yearMonth}-01");
+        }
+
+        public static DateTime LastDay(this string yearMonth)
+        {
+            var daysInMonth = DaysInMonth(yearMonth);
+
+            return DateTime.Parse($"{yearMonth}-{daysInMonth}");
+        }
+
+        private static int DaysInMonth(string yearMonth)
+        {
+            return DateTime.DaysInMonth(Convert.ToInt16(yearMonth.Split('-')[0]),
+                Convert.ToInt16(yearMonth.Split('-')[1]));
         }
     }
 }
