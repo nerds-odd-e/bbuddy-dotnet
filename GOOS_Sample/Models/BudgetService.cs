@@ -83,10 +83,8 @@ namespace GOOS_Sample.Models
 
         private static int GetDaysOfBudgetYearMonth(this Budget budget)
         {
-            var days = DateTime.DaysInMonth(Convert.ToInt16(budget.YearMonth.Split('-')[0]),
+            return DateTime.DaysInMonth(Convert.ToInt16(budget.YearMonth.Split('-')[0]),
                 Convert.ToInt16(budget.YearMonth.Split('-')[1]));
-
-            return days;
         }
 
         public static decimal GetOverlappingAmount(this Budget budget, Period period)
@@ -95,8 +93,7 @@ namespace GOOS_Sample.Models
 
             int overlappigDays = budget.GetOverlappingDays(period);
 
-            var totalBudget = dailyAmount * overlappigDays;
-            return totalBudget;
+            return dailyAmount * overlappigDays;
         }
 
         public static DateTime FirstDay(this string yearMonth)
