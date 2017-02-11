@@ -1,4 +1,4 @@
-﻿using GOOS_Sample.Models;
+﻿using FluentAssertions;
 using GOOS_Sample.Models.DataModels;
 using GOOS_Sample.Models.Repositories;
 using GOOS_Sample.Models.ViewModels;
@@ -6,8 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using FluentAssertions;
 
 namespace GOOS_Sample.Models.Tests
 {
@@ -74,7 +72,7 @@ namespace GOOS_Sample.Models.Tests
         }
 
         [TestMethod]
-        public void TotalBudgetTest_Period_over_single_month_but_only_one_month_budget()
+        public void TotalBudgetTest_Period_StartDate_over_single_month_but_only_one_month_budget()
         {
             this._budgetService = new BudgetService(_budgetRepositoryStub);
 
