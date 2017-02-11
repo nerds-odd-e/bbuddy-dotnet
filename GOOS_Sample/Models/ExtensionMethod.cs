@@ -16,9 +16,7 @@ namespace GOOS_Sample.Models
 
         private static decimal DailyAmount(this Budget budget)
         {
-            var days = DaysInMonth(budget.YearMonth);
-
-            return budget.Amount / days;
+            return budget.Amount / DaysInMonth(budget.YearMonth);
         }
 
         private static int DaysInMonth(string yearMonth)
@@ -57,9 +55,7 @@ namespace GOOS_Sample.Models
 
         private static DateTime LastDay(this string yearMonth)
         {
-            var daysInMonth = DaysInMonth(yearMonth);
-
-            return DateTime.Parse($"{yearMonth}-{daysInMonth}");
+            return DateTime.Parse($"{yearMonth}-{DaysInMonth(yearMonth)}");
         }
     }
 }
