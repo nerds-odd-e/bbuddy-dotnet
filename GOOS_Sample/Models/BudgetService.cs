@@ -18,11 +18,6 @@ namespace GOOS_Sample.Models
 
         public event EventHandler Updated;
 
-        public decimal TotalBudget(Period period)
-        {
-            return 20000;
-        }
-
         public void Create(BudgetAddViewModel model)
         {
             var budget = this._budgetRepository.Read(x => x.YearMonth == model.Month);
@@ -41,6 +36,11 @@ namespace GOOS_Sample.Models
                 var handler = this.Updated;
                 handler?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public decimal TotalBudget(Period period)
+        {
+            return 20000;
         }
     }
 }
