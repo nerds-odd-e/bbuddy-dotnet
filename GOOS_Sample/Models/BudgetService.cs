@@ -22,32 +22,41 @@ namespace GOOS_Sample.Models
         public void Create(BudgetAddViewModel model)
         {
             var budget = this._budgetRepository.Read(x => x.YearMonth == model.Month);
+            
             if (budget == null)
             {
-                this._budgetRepository.Save(new Budget() { Amount = model.Amount, YearMonth = model.Month });
-
-                var handler = this.Created;
-                handler?.Invoke(this, EventArgs.Empty);
+                AddBudget(model);
             }
             else
             {
-                budget.Amount = model.Amount;
-                this._budgetRepository.Save(budget);
-
-                var handler = this.Updated;
-                handler?.Invoke(this, EventArgs.Empty);
+                UpdateBudget(model, budget);
             }
+        }
+
+        private void UpdateBudget(BudgetAddViewModel model, Budget budget)
+        {
+            budget.Amount = model.Amount;
+            this._budgetRepository.Save(budget);
+
+            var handler = this.Updated;
+            handler?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void AddBudget(BudgetAddViewModel model)
+        {
+            this._budgetRepository.Save(new Budget() {Amount = model.Amount, YearMonth = model.Month});
+
+            var handler = this.Created;
+            handler?.Invoke(this, EventArgs.Empty);
         }
 
         public decimal TotalBudget(Period period)
         {
-            var totalBudget =
-                this._budgetRepository
+
+            return this._budgetRepository
                     .ReadAll()
                     .Where(x => IsBetweenPeriod(period, x))
                     .Sum(x => x.GetOverlappingAmount(period));
-
-            return totalBudget;
         }
 
         private static bool IsBetweenPeriod(Period period, Budget x)
