@@ -47,11 +47,18 @@ namespace GOOS_Sample.Models
                 .Where(x => IsBetweenPeriod(period, x))
                 .ElementAt(0);
 
+            var totalBudget = GetOverlappingAmount(period, budget);
+            return totalBudget;
+        }
+
+        private static decimal GetOverlappingAmount(Period period, Budget budget)
+        {
             var dailyAmount = budget.DailyAmount();
 
             int overlappigDays = budget.GetOverlappingDays(period);
 
-            return dailyAmount * overlappigDays;
+            var totalBudget = dailyAmount*overlappigDays;
+            return totalBudget;
         }
 
         private static bool IsBetweenPeriod(Period period, Budget x)
