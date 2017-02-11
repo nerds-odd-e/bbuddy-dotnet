@@ -47,10 +47,7 @@ namespace GOOS_Sample.Models
                 .Where(x => IsBetweenPeriod(period, x))
                 .ElementAt(0);
 
-            var days = DateTime.DaysInMonth(Convert.ToInt16(budget.YearMonth.Split('-')[0]),
-                Convert.ToInt16(budget.YearMonth.Split('-')[1]));
-
-            decimal dailyAmount = budget.Amount / days;
+            var dailyAmount = budget.DailyAmount();
 
             int overlappigDays = budget.GetOverlappingDays(period);
 
@@ -67,9 +64,16 @@ namespace GOOS_Sample.Models
     {
         public static int GetOverlappingDays(this Budget source, Period period)
         {
-            var days = new TimeSpan(period.EndDate.AddDays(1).Ticks - period.StartDate.Ticks).Days;
+            return new TimeSpan(period.EndDate.AddDays(1).Ticks - period.StartDate.Ticks).Days;
+        }
 
-            return days;
+        public static decimal DailyAmount(this Budget budget)
+        {
+            var days = DateTime.DaysInMonth(Convert.ToInt16(budget.YearMonth.Split('-')[0]),
+                Convert.ToInt16(budget.YearMonth.Split('-')[1]));
+
+            decimal dailyAmount = budget.Amount / days;
+            return dailyAmount;
         }
     }
 }
