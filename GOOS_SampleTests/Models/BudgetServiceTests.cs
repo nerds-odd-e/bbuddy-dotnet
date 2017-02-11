@@ -42,16 +42,15 @@ namespace GOOS_Sample.Models.Tests
             var wasUpdated = false;
             this._budgetService.Updated += (sender, e) => { wasUpdated = true; };
 
-            var budgetFromDb = new Budget { Amount = 999, YearMonth = "2017-02" };
             _budgetRepositoryStub.Read(Arg.Any<Func<Budget, bool>>())
-                .ReturnsForAnyArgs(budgetFromDb);
+                .ReturnsForAnyArgs(new Budget { Amount = 999, YearMonth = "2017-02" });
 
             var model = new BudgetAddViewModel { Amount = 2000, Month = "2017-02" };
             this._budgetService.Create(model);
 
             //assert
             _budgetRepositoryStub.Received()
-                .Save(Arg.Is<Budget>(x => x == budgetFromDb && x.Amount == 2000));
+                .Save(Arg.Is<Budget>(x => x == (Budget)new Budget { Amount = 999, YearMonth = "2017-02" } && x.Amount == 2000));
 
             Assert.IsTrue(wasUpdated);
         }
