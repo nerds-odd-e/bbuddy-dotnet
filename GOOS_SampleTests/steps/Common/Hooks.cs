@@ -1,5 +1,7 @@
 ﻿using FluentAutomation;
+using GOOS_Sample.Models;
 using GOOS_Sample.Models.DataModels;
+using Microsoft.Practices.Unity;
 using System.Linq;
 using TechTalk.SpecFlow;
 
@@ -13,6 +15,20 @@ namespace GOOS_SampleTests.steps.Common
         public static void SetBrowser()
         {
             SeleniumWebDriver.Bootstrap(SeleniumWebDriver.Browser.Chrome);
+        }
+
+        [BeforeFeature()]
+        public static void RegisterDIContainer()
+        {
+            UnityContainer = new UnityContainer();
+
+            UnityContainer.RegisterType<IBudgetService, BudgetService>();
+        }
+
+        public static IUnityContainer UnityContainer
+        {
+            get;
+            set;
         }
 
         [BeforeScenario()]

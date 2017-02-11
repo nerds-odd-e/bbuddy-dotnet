@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Security.AccessControl;
-using System.Web.Mvc;
-using FluentAssertions;
+﻿using FluentAssertions;
 using GOOS_Sample.Controllers;
-using GOOS_Sample.Models;
 using GOOS_Sample.Models.ViewModels;
 using GOOS_SampleTests.DataModelsForIntegrationTest;
+using GOOS_SampleTests.steps.Common;
+using Microsoft.Practices.Unity;
+using System.Linq;
+using System.Web.Mvc;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -19,7 +19,7 @@ namespace GOOS_SampleTests
         [BeforeScenario()]
         public void BeforeScenario()
         {
-            this._budgetController = new BudgetController(new BudgetService());
+            this._budgetController = Hooks.UnityContainer.Resolve<BudgetController>();
         }
 
         [When(@"add a budget")]
