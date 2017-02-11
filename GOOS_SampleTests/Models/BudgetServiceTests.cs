@@ -23,9 +23,7 @@ namespace GOOS_Sample.Models.Tests
             var wasCreated = false;
             this._budgetService.Created += (sender, e) => { wasCreated = true; };
 
-            var model = new BudgetAddViewModel { Amount = 2000, Month = "2017-02" };
-
-            this._budgetService.Create(model);
+            this._budgetService.Create(new BudgetAddViewModel { Amount = 2000, Month = "2017-02" });
 
             //assert
             _budgetRepositoryStub.Received()
@@ -42,15 +40,16 @@ namespace GOOS_Sample.Models.Tests
             var wasUpdated = false;
             this._budgetService.Updated += (sender, e) => { wasUpdated = true; };
 
-            _budgetRepositoryStub.Read(Arg.Any<Func<Budget, bool>>())
-                .ReturnsForAnyArgs(new Budget { Amount = 999, YearMonth = "2017-02" });
 
-            var model = new BudgetAddViewModel { Amount = 2000, Month = "2017-02" };
-            this._budgetService.Create(model);
+            var budgetFromDb = new Budget { Amount = 999, YearMonth = "2017-02" };
+            _budgetRepositoryStub.Read(Arg.Any<Func<Budget, bool>>())
+                .ReturnsForAnyArgs(budgetFromDb);
+
+            this._budgetService.Create(new BudgetAddViewModel { Amount = 2000, Month = "2017-02" });
 
             //assert
             _budgetRepositoryStub.Received()
-                .Save(Arg.Is<Budget>(x => x == (Budget)new Budget { Amount = 999, YearMonth = "2017-02" } && x.Amount == 2000));
+                .Save(Arg.Is<Budget>(x => x == budgetFromDb && x.Amount == 2000));
 
             Assert.IsTrue(wasUpdated);
         }
@@ -89,11 +88,7 @@ namespace GOOS_Sample.Models.Tests
             _budgetRepositoryStub.ReadAll()
                 .ReturnsForAnyArgs(new List<Budget> { new Budget() { YearMonth = "2017-04", Amount = 9000 } });
 
-            var amount = this._budgetService.TotalBudget(new Period(new DateTime(2017, 4, 5), new DateTime(2017, 4, 14)));
-
-            var expected = 3000;
-
-            amount.ShouldBeEquivalentTo(expected);
+            AssertTotalAmount(3000, new Period(new DateTime(2017, 4, 5), new DateTime(2017, 4, 14)));
         }
 
         [TestMethod]
