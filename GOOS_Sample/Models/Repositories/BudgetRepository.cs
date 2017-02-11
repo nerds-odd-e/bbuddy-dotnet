@@ -1,5 +1,6 @@
 ﻿using GOOS_Sample.Models.DataModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GOOS_Sample.Models.Repositories
@@ -32,6 +33,11 @@ namespace GOOS_Sample.Models.Repositories
                 var firstBudget = dbcontext.Budgets.FirstOrDefault(predicate);
                 return firstBudget;
             }
+        }
+
+        public IEnumerable<Budget> ReadAll(Func<Budget, bool> predicate)
+        {
+            throw new NotImplementedException();
         }
     }
 }
