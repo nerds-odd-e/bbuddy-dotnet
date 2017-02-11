@@ -217,6 +217,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BudgetModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExtensionMethod.cs" />
     <Compile Include="Models\IBudgetService.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
