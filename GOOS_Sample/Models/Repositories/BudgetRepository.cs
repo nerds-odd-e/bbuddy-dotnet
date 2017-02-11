@@ -37,7 +37,11 @@ namespace GOOS_Sample.Models.Repositories
 
         public IEnumerable<Budget> ReadAll()
         {
-            throw new NotImplementedException();
+            using (var dbcontext = new NorthwindEntities())
+            {
+                //because of budget table rows count should be small
+                return dbcontext.Budgets.ToList();
+            }
         }
     }
 }
