@@ -19,11 +19,6 @@ namespace GOOS_SampleTests
         public void BeforeScenario()
         {
             this._budgetController = new BudgetController();
-
-            using (var dbcontext = new NorthwindEntitiesForTest())
-            {
-                dbcontext.Database.ExecuteSqlCommand("TRUNCATE TABLE [Budgets]");
-            }
         }
 
         [When(@"add a budget")]

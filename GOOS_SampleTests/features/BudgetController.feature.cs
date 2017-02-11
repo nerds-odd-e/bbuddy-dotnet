@@ -70,11 +70,11 @@ namespace GOOS_SampleTests.Features
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add a budget record")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BudgetController")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("CleanBudget")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("CleanBudgets")]
         public virtual void AddABudgetRecord()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a budget record", new string[] {
-                        "CleanBudget"});
+                        "CleanBudgets"});
 #line 4
 this.ScenarioSetup(scenarioInfo);
 #line hidden

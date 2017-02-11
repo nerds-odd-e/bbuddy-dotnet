@@ -31,7 +31,8 @@ namespace GOOS_SampleTests.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner(null, 0);
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BudgetCreate", null, ProgrammingLanguage.CSharp, new string[] {
-                        "web"});
+                        "web",
+                        "CleanBudgets"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -72,6 +73,7 @@ namespace GOOS_SampleTests.Features
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add a budget successfully")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BudgetCreate")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("web")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("CleanBudgets")]
         public virtual void AddABudgetSuccessfully()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a budget successfully", ((string[])(null)));
