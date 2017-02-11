@@ -33,7 +33,7 @@ namespace GOOS_Sample.Controllers.Tests
         {
             this._budgetController = new BudgetController(budgetServiceStub);
             budgetServiceStub.TotalBudget(new Period(new DateTime(2017, 4, 5), new DateTime(2017, 4, 14)))
-                .Returns(888);
+                .ReturnsForAnyArgs(888);
 
             var condition = new BudgetQueryViewModel() {StartDate = "2017-04-05", EndDate = "2017-04-14"};
 
