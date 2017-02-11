@@ -39,7 +39,7 @@ namespace GOOS_SampleTests.steps.Common
             CleanTableByTags();
         }
 
-        [AfterFeature()]
+        //[AfterFeature()]
         public static void AfterFeatureCleanTable()
         {
             CleanTableByTags();

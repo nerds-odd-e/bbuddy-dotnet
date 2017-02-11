@@ -1,8 +1,6 @@
 ﻿using FluentAutomation;
-using GOOS_SampleTests.DataModelsForIntegrationTest;
 using GOOS_SampleTests.PageObjects;
 using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Assist;
 
 namespace GOOS_SampleTests.steps
 {
@@ -21,17 +19,6 @@ namespace GOOS_SampleTests.steps
         public void GivenGoToAddingBudgetPage()
         {
             this._budgetCreatePage.Go();
-        }
-
-        [Given(@"Budget table existed budgets")]
-        public void GivenBudgetTableExistedBudgets(Table table)
-        {
-            var budgets = table.CreateSet<Budget>();
-            using (var dbcontext = new NorthwindEntitiesForTest())
-            {
-                dbcontext.Budgets.AddRange(budgets);
-                dbcontext.SaveChanges();
-            }
         }
 
         [When(@"I add a buget (.*) for ""(.*)""")]

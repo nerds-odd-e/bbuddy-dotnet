@@ -100,6 +100,49 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Update a budget record When the budget record existed")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BudgetController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("CleanBudgets")]
+        public virtual void UpdateABudgetRecordWhenTheBudgetRecordExisted()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a budget record When the budget record existed", new string[] {
+                        "CleanBudgets"});
+#line 14
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Amount",
+                        "YearMonth"});
+            table3.AddRow(new string[] {
+                        "999",
+                        "2017-02"});
+#line 15
+ testRunner.Given("Budget table existed budgets", ((string)(null)), table3, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Amount",
+                        "Month"});
+            table4.AddRow(new string[] {
+                        "2000",
+                        "2017-02"});
+#line 18
+ testRunner.When("add a budget", ((string)(null)), table4, "When ");
+#line 21
+ testRunner.Then("ViewBag should have a message for updating successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Amount",
+                        "YearMonth"});
+            table5.AddRow(new string[] {
+                        "2000",
+                        "2017-02"});
+#line 22
+ testRunner.And("it should exist a budget record in budget table", ((string)(null)), table5, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
