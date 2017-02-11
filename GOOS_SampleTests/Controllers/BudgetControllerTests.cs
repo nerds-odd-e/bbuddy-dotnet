@@ -1,13 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using GOOS_Sample.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NSubstitute;
-using GOOS_Sample.Models;
+﻿using GOOS_Sample.Models;
 using GOOS_Sample.Models.ViewModels;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
+using System;
+using System.Web.Mvc;
+using FluentAssertions;
 
 namespace GOOS_Sample.Controllers.Tests
 {
@@ -20,7 +17,7 @@ namespace GOOS_Sample.Controllers.Tests
         [TestMethod()]
         public void AddTest_add_budget_successfully_should_invoke_budgetService_Create_one_time()
         {
-            this._budgetController = new BudgetController(budgetServiceStub);            
+            this._budgetController = new BudgetController(budgetServiceStub);
 
             var model = new BudgetAddViewModel()
                 {Amount = 2000, Month = "2017-02"};
@@ -29,6 +26,23 @@ namespace GOOS_Sample.Controllers.Tests
 
             budgetServiceStub.Received()
                 .Create(Arg.Is<BudgetAddViewModel>(x => x.Amount == 2000 && x.Month == "2017-02"));
+        }
+
+        [TestMethod()]
+        public void QueryTest()
+        {
+            this._budgetController = new BudgetController(budgetServiceStub);
+            budgetServiceStub.TotalBudget(new Period(new DateTime(2017, 4, 5), new DateTime(2017, 4, 14)))
+                .Returns(888);
+
+            var condition = new BudgetQueryViewModel() {StartDate = "2017-04-05", EndDate = "2017-04-14"};
+
+            var result = this._budgetController.Query(condition) as ViewResult;
+            var actual = result.ViewData.Model as BudgetQueryViewModel;
+
+            var expected = new BudgetQueryViewModel {StartDate = "2017-04-05", EndDate = "2017-04-14", Amount = 888};
+
+            actual.ShouldBeEquivalentTo(expected);
         }
     }
 }

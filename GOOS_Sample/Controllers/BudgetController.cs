@@ -1,5 +1,6 @@
 ﻿using GOOS_Sample.Models;
 using GOOS_Sample.Models.ViewModels;
+using System;
 using System.Web.Mvc;
 
 namespace GOOS_Sample.Controllers
@@ -38,7 +39,9 @@ namespace GOOS_Sample.Controllers
         [HttpPost]
         public ActionResult Query(BudgetQueryViewModel model)
         {
-            model.Amount = 10000;
+            model.Amount =
+                this.budgetService.TotalBudget(new Period(DateTime.Parse(model.StartDate), DateTime.Parse(model.EndDate)));
+
             return View(model);
         }
     }
