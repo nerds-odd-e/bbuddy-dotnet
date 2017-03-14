@@ -3,3 +3,5 @@ CREATE TABLE [dbo].[Budgets] (
     [YearMonth] VARCHAR (7)  NOT NULL,
     CONSTRAINT [PK_Budgets] PRIMARY KEY CLUSTERED ([YearMonth] ASC)
 );
+
+--test
