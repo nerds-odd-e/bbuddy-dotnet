@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6C36AFDB-4910-4FF5-8E49-39E7B111A315}"
 	ProjectSection(SolutionItems) = preProject
 		SqlScripts\dbo.Budgets.sql = SqlScripts\dbo.Budgets.sql
+		TestSettings1.testsettings = TestSettings1.testsettings
 	EndProjectSection
 EndProject
 Global
