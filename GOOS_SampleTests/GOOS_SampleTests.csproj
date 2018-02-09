@@ -162,6 +162,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BudgetControllerSteps.cs" />
     <Compile Include="Controllers\BudgetControllerTests.cs" />
     <Compile Include="DataModelsForIntegrationTest\Budget.cs">
       <DependentUpon>BudgetModel.tt</DependentUpon>
@@ -181,8 +182,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BudgetModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="features\BudgetController.feature.cs" />
+    <Compile Include="features\BudgetCreate.feature.cs" />
+    <Compile Include="features\BudgetQuery.feature.cs" />
     <Compile Include="Models\BudgetServiceTests.cs" />
+    <Compile Include="PageObjects\BudgetCreatePage.cs" />
+    <Compile Include="PageObjects\BudgetQueryPage.cs" />
+    <Compile Include="PageObjects\PageContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="steps\BudgetCreateSteps.cs" />
+    <Compile Include="steps\BudgetQuerySteps.cs" />
+    <Compile Include="steps\Common\Hooks.cs" />
+    <Compile Include="steps\Common\InsertTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -196,6 +207,9 @@
       <DependentUpon>BudgetModel.edmx</DependentUpon>
       <LastGenOutput>BudgetModel.cs</LastGenOutput>
     </Content>
+    <Content Include="features\BudgetController.feature" />
+    <Content Include="features\BudgetCreate.feature" />
+    <Content Include="features\BudgetQuery.feature" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DataModelsForIntegrationTest\BudgetModel.edmx">
