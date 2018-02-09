@@ -1,20 +1,19 @@
 ﻿using GOOS_Sample.Models;
 using GOOS_Sample.Models.ViewModels;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Web.Mvc;
 using FluentAssertions;
+using Xunit;
 
 namespace GOOS_Sample.Controllers.Tests
 {
-    [TestClass()]
     public class BudgetControllerTests
     {
         private BudgetController _budgetController;
         private IBudgetService budgetServiceStub = Substitute.For<IBudgetService>();
 
-        [TestMethod()]
+        [Fact]
         public void AddTest_add_budget_successfully_should_invoke_budgetService_Create_one_time()
         {
             this._budgetController = new BudgetController(budgetServiceStub);
@@ -28,7 +27,7 @@ namespace GOOS_Sample.Controllers.Tests
                 .Create(Arg.Is<BudgetAddViewModel>(x => x.Amount == 2000 && x.Month == "2017-02"));
         }
 
-        [TestMethod()]
+        [Fact]
         public void QueryTest()
         {
             this._budgetController = new BudgetController(budgetServiceStub);

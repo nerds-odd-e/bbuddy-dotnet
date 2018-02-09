@@ -2,20 +2,19 @@
 using GOOS_Sample.Models.DataModels;
 using GOOS_Sample.Models.Repositories;
 using GOOS_Sample.Models.ViewModels;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
+using Xunit;
 
 namespace GOOS_Sample.Models.Tests
 {
-    [TestClass()]
     public class BudgetServiceTests
     {
         private IRepository<Budget> _budgetRepositoryStub = Substitute.For<IRepository<Budget>>();
         private BudgetService _budgetService;
 
-        [TestMethod()]
+        [Fact]
         public void CreateTest_should_invoke_repository_one_time()
         {
             InjectStubToBudgetService();
@@ -29,10 +28,10 @@ namespace GOOS_Sample.Models.Tests
             _budgetRepositoryStub.Received()
                 .Save(Arg.Is<Budget>(x => x.Amount == 2000 && x.YearMonth == "2017-02"));
 
-            Assert.IsTrue(wasCreated);
+            Assert.True(wasCreated);
         }
 
-        [TestMethod()]
+        [Fact]
         public void CreateTest_when_exist_record_should_update_budget()
         {
             InjectStubToBudgetService();
@@ -51,10 +50,10 @@ namespace GOOS_Sample.Models.Tests
             _budgetRepositoryStub.Received()
                 .Save(Arg.Is<Budget>(x => x == budgetFromDb && x.Amount == 2000));
 
-            Assert.IsTrue(wasUpdated);
+            Assert.True(wasUpdated);
         }
 
-        [TestMethod]
+        [Fact]
         public void TotalBudgetTest_Period_EndDate_over_month_when_two_months_budget()
         {
             InjectStubToBudgetService();
@@ -69,7 +68,7 @@ namespace GOOS_Sample.Models.Tests
             AssertTotalAmount(9500, new Period(new DateTime(2017, 4, 1), new DateTime(2017, 5, 5)));
         }
 
-        [TestMethod]
+        [Fact]
         public void TotalBudgetTest_Period_EndDate_over_single_month_but_only_one_month_budget()
         {
             InjectStubToBudgetService();
@@ -80,7 +79,7 @@ namespace GOOS_Sample.Models.Tests
             AssertTotalAmount(3000, new Period(new DateTime(2017, 4, 21), new DateTime(2017, 5, 10)));
         }
 
-        [TestMethod()]
+        [Fact]
         public void TotalBudgetTest_Period_of_single_month()
         {
             InjectStubToBudgetService();
@@ -91,7 +90,7 @@ namespace GOOS_Sample.Models.Tests
             AssertTotalAmount(3000, new Period(new DateTime(2017, 4, 5), new DateTime(2017, 4, 14)));
         }
 
-        [TestMethod]
+        [Fact]
         public void TotalBudgetTest_Period_over_month_when_3_months_budget()
         {
             InjectStubToBudgetService();
@@ -107,7 +106,7 @@ namespace GOOS_Sample.Models.Tests
             AssertTotalAmount(11500, new Period(new DateTime(2017, 3, 22), new DateTime(2017, 5, 5)));
         }
 
-        [TestMethod]
+        [Fact]
         public void TotalBudgetTest_Period_over_single_month_but_only_one_month_budget()
         {
             InjectStubToBudgetService();
@@ -118,7 +117,7 @@ namespace GOOS_Sample.Models.Tests
             AssertTotalAmount(9000, new Period(new DateTime(2017, 3, 21), new DateTime(2017, 5, 10)));
         }
 
-        [TestMethod]
+        [Fact]
         public void TotalBudgetTest_Period_StartDate_over_month_when_two_months_budget()
         {
             InjectStubToBudgetService();
@@ -133,7 +132,7 @@ namespace GOOS_Sample.Models.Tests
             AssertTotalAmount(10000, new Period(new DateTime(2017, 3, 22), new DateTime(2017, 4, 30)));
         }
 
-        [TestMethod]
+        [Fact]
         public void TotalBudgetTest_Period_StartDate_over_single_month_but_only_one_month_budget()
         {
             InjectStubToBudgetService();
